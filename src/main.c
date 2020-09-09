@@ -2,14 +2,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int main()
+int main(void)
 {
 	if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
 		fprintf(stderr, "SDL_Init Error: %s\n", SDL_GetError());
 		return EXIT_FAILURE;
 	}
 
-	SDL_Window *win = SDL_CreateWindow("Hello World!", 100, 100, 620, 387, SDL_WINDOW_SHOWN);
+	SDL_Window *win = SDL_CreateWindow("Simple Game", 100, 100, 620, 387, SDL_WINDOW_SHOWN);
 	if (win == NULL) {
 		fprintf(stderr, "SDL_CreateWindow Error: %s\n", SDL_GetError());
 		return EXIT_FAILURE;
@@ -25,47 +25,69 @@ int main()
 		return EXIT_FAILURE;
 	}
 
-	/*SDL_Surface *bmp = SDL_LoadBMP("../img/grumpy-cat.bmp");
-	if (bmp == NULL) {
-		fprintf(stderr, "SDL_LoadBMP Error: %s\n", SDL_GetError());
-		if (ren != NULL) {
-			SDL_DestroyRenderer(ren);
-		}
-		if (win != NULL) {
-			SDL_DestroyWindow(win);
-		}
-		SDL_Quit();
-		return EXIT_FAILURE;
-	}
+        SDL_Rect myRect = {
+                .w = 50,
+                .h = 50,
+                .x = 10,
+                .y = 10,
+        };
 
-	SDL_Texture *tex = SDL_CreateTextureFromSurface(ren, bmp);
-	if (tex == NULL) {
-		fprintf(stderr, "SDL_CreateTextureFromSurface Error: %s\n", SDL_GetError());
-		if (bmp != NULL) {
-			SDL_FreeSurface(bmp);
-		}
-		if (ren != NULL) {
-			SDL_DestroyRenderer(ren);
-		}
-		if (win != NULL) {
-			SDL_DestroyWindow(win);
-		}
-		SDL_Quit();
-		return EXIT_FAILURE;
-	}
-	SDL_FreeSurface(bmp);
+        uint8_t close = 0;
+        while (!close) {
+                SDL_Event event; 
+          
+                // Events mangement 
+                while (SDL_PollEvent(&event)) { 
+                    switch (event.type) { 
+                            case SDL_QUIT: 
+                                // handling of close button 
+                                close = 1; 
+                                break; 
+                  
+                            case SDL_KEYDOWN: 
+                                // keyboard API for key pressed 
+                                switch (event.key.keysym.scancode) { 
+                                        case SDL_SCANCODE_W: 
+                                        case SDL_SCANCODE_UP: 
+                                            //dest.y -= speed / 30; 
+                                            break; 
+                                        case SDL_SCANCODE_A: 
+                                        case SDL_SCANCODE_LEFT: 
+                                            //dest.x -= speed / 30; 
+                                            break; 
+                                        case SDL_SCANCODE_S: 
+                                        case SDL_SCANCODE_DOWN: 
+                                            //dest.y += speed / 30; 
+                                            break; 
+                                        case SDL_SCANCODE_D: 
+                                        case SDL_SCANCODE_RIGHT: 
+                                            //dest.x += speed / 30; 
+                                            break;
+                                        default:
+                                            break;
+                                }
+                            default:
+                                break;
+                    } 
+                }
 
-	for (int i=0; i < 20; i++) {
-			SDL_RenderClear(ren);
-			SDL_RenderCopy(ren, tex, NULL, NULL);
-			SDL_RenderPresent(ren);
-			SDL_Delay(100);
-	}
+                //update
+                myRect.x += 1;
+                myRect.x %= 100;
 
-	SDL_DestroyTexture(tex);
-	SDL_DestroyRenderer(ren);*/
+                // Render
+                SDL_RenderClear(ren);
+
+                SDL_SetRenderDrawColor(ren, 0, 255, 0, 255); // green
+                SDL_RenderFillRect(ren, &myRect);
+                SDL_SetRenderDrawColor(ren, 0, 0, 0, 255); // black
+
+                SDL_RenderPresent(ren);
+                SDL_Delay(1000 / 60); // 60 FPS
+        }
+
+	SDL_DestroyRenderer(ren);
 	SDL_DestroyWindow(win);
 	SDL_Quit();
-        printf("Success!\n");
 	return EXIT_SUCCESS;
 }
