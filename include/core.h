@@ -2,6 +2,7 @@
 #define CORE__H__
 
 #include <SDL2/SDL.h>
+#include <lib.h>
 
 extern SDL_Renderer* renderer;
 
@@ -13,6 +14,6 @@ struct window_ctx {
 struct window_ctx init(const char*, int, int, int, int);
 void cleanup(struct window_ctx);
 
-void handle_events(uint8_t*);
+input handle_events(uint8_t*);
 
 #endif

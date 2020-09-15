@@ -19,6 +19,8 @@ void rect(int x, int y, int w, int h, colour col)
 
 void line(int x1, int y1, int x2, int y2, colour col)
 {
-
+        SDL_SetRenderDrawColor(renderer, col.r, col.g, col.b, col.a);
+        SDL_RenderDrawLine(renderer, x1, y1, x2, y2);
+        SDL_SetRenderDrawColor(renderer, BG_COL.r, BG_COL.g, BG_COL.b, BG_COL.a);
 }
 

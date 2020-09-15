@@ -17,10 +17,16 @@ typedef union {
 } colour; // RGBA
 typedef uint8_t bool;
 
+typedef struct {
+        char horizontal;
+        char vertical;
+        bool fire;
+} input;
+
 extern const colour BG_COL;
 
 void start(void);
-void update(void);
+void update(input in);
 void draw(void);
 
 void rect(int x, int y, int w, int h, colour col);

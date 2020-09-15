@@ -14,15 +14,15 @@ int main(void)
 
         bool close = FALSE;
         while (!close) {
-                handle_events(&close); 
+                input in = handle_events(&close); 
 
                 //update
-                update();
+                update(in);
 
                 // Render
                 SDL_RenderClear(ren);
                 
-                draw(ren);
+                draw();
                 
                 SDL_RenderPresent(ren);
                 SDL_Delay(1000 / 60); // 60 FPS
