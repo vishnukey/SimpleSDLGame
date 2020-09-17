@@ -28,6 +28,7 @@ int main(void)
                 SDL_Delay(1000 / 60); // 60 FPS
         }
 
+        finished();
         cleanup(ctx);
         return EXIT_SUCCESS;
 }

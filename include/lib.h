@@ -28,6 +28,7 @@ extern const colour BG_COL;
 void start(void);
 void update(input in);
 void draw(void);
+void finished(void);
 
 void rect(int x, int y, int w, int h, colour col);
 void line(int x1, int y1, int x2, int y2, colour col);

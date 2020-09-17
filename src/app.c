@@ -46,6 +46,7 @@ void drawShot(shot* sht);
 
 void start()
 {
+        printf("Starting game\n");
        // w = 50;
        // h = 50;
        // x = 10;
@@ -61,7 +62,7 @@ void update(input in)
         if (in.fire) {
                 struct node* nodePtr = list_push(shotList, sizeof(shot));
                 shot* newShot = (shot*)nodePtr->data;
-                newShot->x = p.x;
+                newShot->x = p.x + (p.w / 2);
                 newShot->y = p.y - p.h;
                 newShot->length = 100;
                 newShot->speed = -20;
@@ -80,13 +81,19 @@ void update(input in)
 
 void draw()
 {
-        rect(p.x, p.y, p.w, p.h, p.col);
         drawShot(&test);
         for (list* it = shotList->next; it != NULL; it = it->next)
         {
                 drawShot((shot*)it->data);
         }
 
+        rect(p.x, p.y, p.w, p.h, p.col);
+}
+
+void finished()
+{
+        list_free(shotList);
+        printf("All done\n");
 }
 
 void drawShot(shot* sht)
