@@ -48,11 +48,13 @@ void cleanup(struct window_ctx ctx)
 input handle_events(uint8_t* close)
 {
         SDL_Event event; 
-        input in = {
+        static input in = {
                 .horizontal = 0,
                 .vertical = 0,
                 .fire = FALSE,
         };
+
+        if (in.fire) in.fire = FALSE;
           
         // Events mangement 
         while (SDL_PollEvent(&event)) { 
@@ -66,22 +68,45 @@ input handle_events(uint8_t* close)
                         // keyboard API for key pressed 
                         if( event.key.keysym.scancode == SDL_SCANCODE_W 
                         || event.key.keysym.scancode == SDL_SCANCODE_UP){ 
-                            in.vertical -= 1; 
+                            in.vertical = -1; 
                         }
                         if (event.key.keysym.scancode == SDL_SCANCODE_A
                         || event.key.keysym.scancode == SDL_SCANCODE_LEFT){
-                            in.horizontal -= 1; 
+                            in.horizontal = -1; 
                         }
                         if (event.key.keysym.scancode == SDL_SCANCODE_S
                         || event.key.keysym.scancode == SDL_SCANCODE_DOWN){
-                            in.vertical += 1;
+                            in.vertical = 1;
                         }
                         if (event.key.keysym.scancode == SDL_SCANCODE_D 
                         || event.key.keysym.scancode == SDL_SCANCODE_RIGHT){
-                            in.horizontal += 1;
+                            in.horizontal = 1;
                         }
                         if (event.key.keysym.scancode == SDL_SCANCODE_SPACE && !event.key.repeat){
                                 in.fire = TRUE;
+                        }
+                        else in.fire = FALSE;
+                        break;
+                    case SDL_KEYUP: 
+                        // keyboard API for key pressed 
+                        if( event.key.keysym.scancode == SDL_SCANCODE_W 
+                        || event.key.keysym.scancode == SDL_SCANCODE_UP){ 
+                            in.vertical = 0; 
+                        }
+                        if (event.key.keysym.scancode == SDL_SCANCODE_A
+                        || event.key.keysym.scancode == SDL_SCANCODE_LEFT){
+                            in.horizontal = 0; 
+                        }
+                        if (event.key.keysym.scancode == SDL_SCANCODE_S
+                        || event.key.keysym.scancode == SDL_SCANCODE_DOWN){
+                            in.vertical = 0;
+                        }
+                        if (event.key.keysym.scancode == SDL_SCANCODE_D 
+                        || event.key.keysym.scancode == SDL_SCANCODE_RIGHT){
+                            in.horizontal = 0;
+                        }
+                        if (event.key.keysym.scancode == SDL_SCANCODE_SPACE){
+                                in.fire = FALSE;
                         }
                         break;
                     default:

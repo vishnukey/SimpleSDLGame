@@ -1,4 +1,5 @@
 #include <lib.h>
+#include <list.h>
 
 typedef struct {
         int x;
@@ -10,12 +11,12 @@ typedef struct {
 typedef struct {
         int y;
         colour col;
-        const int w, h, x;
+        int w, h, x;
         int speed;
 } enemy;
 
 typedef struct {
-        const int x, length;
+        int x, length;
         int speed;
         int y;
 } shot;
@@ -39,6 +40,8 @@ shot test = {
 };
 const colour SHOT_COL = (colour)0x662266FF;
 
+list* shotList = NULL;
+
 void drawShot(shot* sht);
 
 void start()
@@ -47,6 +50,7 @@ void start()
        // h = 50;
        // x = 10;
        // y = 10;
+       shotList = list_new();
 }
 
 void update(input in)
@@ -54,13 +58,34 @@ void update(input in)
         p.x += in.horizontal * p.speed;
         test.y += test.speed;
         //y += in.vertical * speed;
-        if (in.fire) printf("fired!\n");
+        if (in.fire) {
+                struct node* nodePtr = list_push(shotList, sizeof(shot));
+                shot* newShot = (shot*)nodePtr->data;
+                newShot->x = p.x;
+                newShot->y = p.y - p.h;
+                newShot->length = 100;
+                newShot->speed = -20;
+        }
+
+        for (list* it = shotList->next; it != NULL; it = it->next)
+        {
+                shot* s = (shot*)it->data;
+                s->y += s->speed;
+                if (s->y < 0){
+                        it = remove_node(it);
+                        if (it == NULL) break;
+                }
+        }
 }
 
 void draw()
 {
         rect(p.x, p.y, p.w, p.h, p.col);
         drawShot(&test);
+        for (list* it = shotList->next; it != NULL; it = it->next)
+        {
+                drawShot((shot*)it->data);
+        }
 
 }
 
