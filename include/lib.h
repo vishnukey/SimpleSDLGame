@@ -24,9 +24,11 @@ typedef struct {
 } input;
 
 extern const colour BG_COL;
+extern const int WINDOW_HEIGHT;
+extern const int WINDOW_WIDTH;
 
 void start(void);
-void update(input in);
+void update(input in, bool* close);
 void draw(void);
 void finished(void);
 

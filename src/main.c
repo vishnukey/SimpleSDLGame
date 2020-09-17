@@ -2,10 +2,12 @@
 #include <lib.h>
 
 SDL_Renderer* renderer;
+const int WINDOW_HEIGHT = 627;
+const int WINDOW_WIDTH = 660;
 
 int main(void)
 {
-        struct window_ctx ctx = init("My Simple Game", 100, 100, 660, 627);
+        struct window_ctx ctx = init("My Simple Game", 100, 100, WINDOW_WIDTH, WINDOW_HEIGHT);
         renderer = ctx.ren;
         SDL_Renderer* ren = renderer;
 
@@ -17,7 +19,7 @@ int main(void)
                 input in = handle_events(&close); 
 
                 //update
-                update(in);
+                update(in, &close);
 
                 // Render
                 SDL_RenderClear(ren);
