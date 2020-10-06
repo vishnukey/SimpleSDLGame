@@ -3,13 +3,13 @@
 
 const colour BG_COL = (colour)0x000000FF; // black, full alpha
 
-void rect(int x, int y, int w, int h, colour col)
+void rect(float x, float y, float w, float h, colour col)
 {
         SDL_Rect rect = {
-                .x = x,
-                .y = y,
-                .w = w,
-                .h = h,
+                .x = (int)x,
+                .y = (int)y,
+                .w = (int)w,
+                .h = (int)h,
         };
         SDL_SetRenderDrawColor(renderer, col.r, col.g, col.b, col.a); // green
         SDL_RenderFillRect(renderer, &rect);
@@ -17,10 +17,10 @@ void rect(int x, int y, int w, int h, colour col)
 
 }
 
-void line(int x1, int y1, int x2, int y2, colour col)
+void line(float x1, float y1, float x2, float y2, colour col)
 {
         SDL_SetRenderDrawColor(renderer, col.r, col.g, col.b, col.a);
-        SDL_RenderDrawLine(renderer, x1, y1, x2, y2);
+        SDL_RenderDrawLine(renderer, (int)x1, (int)y1, (int)x2, (int)y2);
         SDL_SetRenderDrawColor(renderer, BG_COL.r, BG_COL.g, BG_COL.b, BG_COL.a);
 }
 

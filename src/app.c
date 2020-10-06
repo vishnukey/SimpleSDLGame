@@ -3,23 +3,23 @@
 #include <config.h>
 
 typedef struct {
-        int x;
-        const int w, h, y;
+        float x;
+        const float w, h, y;
         colour col;
-        int speed;
+        float speed;
 } player;
 
 typedef struct {
-        int y;
+        float y;
         colour col;
-        int w, h, x;
-        int speed;
+        float w, h, x;
+        float speed;
 } enemy;
 
 typedef struct {
-        int x, length;
-        int speed;
-        int y;
+        float x, length;
+        float speed;
+        float y;
 } shot;
 
 
@@ -53,7 +53,7 @@ void start()
         enemy* testE = (enemy*)ePtr->data;
         testE->h = 55;
         testE->w = 25;
-        testE->speed = 1;
+        testE->speed = 10;
         testE->x = 50;
         testE->y = -testE->h;
         testE->col = (colour)(int)0xFF0000FF;
@@ -61,7 +61,8 @@ void start()
 
 void update(input in, bool* close)
 {
-        p.x += in.horizontal * p.speed;
+        float deltaTime = 1. / 60.;
+        p.x += in.horizontal * p.speed * deltaTime;
 
         if (in.fire) {
                 struct node* nodePtr = list_push(shotList, sizeof(shot));
@@ -72,7 +73,7 @@ void update(input in, bool* close)
         for (list* it = shotList->next; it != NULL; it = it->next)
         {
                 shot* s = (shot*)it->data;
-                s->y += s->speed;
+                s->y += s->speed * deltaTime;
                 if (s->y < 0){
                         it = remove_node(it);
                         if (it == NULL) break;
@@ -96,7 +97,7 @@ void update(input in, bool* close)
         for (list* it = enemyList->next; it != NULL; it = it->next)
         {
                 enemy* e = (enemy*)it->data;
-                e->y += e->speed;
+                e->y += e->speed * deltaTime;
 
                 if (e->y >= WINDOW_HEIGHT) *close = TRUE;
         }

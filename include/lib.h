@@ -32,7 +32,7 @@ void update(input in, bool* close);
 void draw(void);
 void finished(void);
 
-void rect(int x, int y, int w, int h, colour col);
-void line(int x1, int y1, int x2, int y2, colour col);
+void rect(float x, float y, float w, float h, colour col);
+void line(float x1, float y1, float x2, float y2, colour col);
 
 #endif
