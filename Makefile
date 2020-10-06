@@ -11,12 +11,12 @@ FLAGS+= -Wall -Werror
 
 LINK= -lm `sdl2-config --libs`
 
-CC=clang
+CC=clang++
 
 all: game
 
 game:
-	${CC} ${FLAGS} ${LINK} -o ${BUILD}/${NAME} ${SRC}/*.c 
+	${CC} ${FLAGS} ${LINK} -o ${BUILD}/${NAME} ${SRC}/*.cpp 
 
 clean:
 	@rm ${BUILD}/${NAME}

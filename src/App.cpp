@@ -1,38 +1,53 @@
-#include <SDL2/SDL.h>
+#include <App.hpp>
+
 #include <stdio.h>
-#include <stdlib.h>
 
-int main(void)
+App::App(std::string title, int x, int y, int width, int height)
 {
-	if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
-		fprintf(stderr, "SDL_Init Error: %s\n", SDL_GetError());
-		return EXIT_FAILURE;
-	}
+        if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
+                fprintf(stderr, "SDL_Init Error: %s\n", SDL_GetError());
+                //return EXIT_FAILURE;
+        }
 
-	SDL_Window *win = SDL_CreateWindow("Simple Game", 100, 100, 620, 387, SDL_WINDOW_SHOWN);
-	if (win == NULL) {
-		fprintf(stderr, "SDL_CreateWindow Error: %s\n", SDL_GetError());
-		return EXIT_FAILURE;
-	}
+        SDL_Window* win = SDL_CreateWindow(title.c_str(), x, y, width, height, SDL_WINDOW_SHOWN);
+        if (win == NULL) {
+                fprintf(stderr, "SDL_CreateWindow Error: %s\n", SDL_GetError());
+                //return EXIT_FAILURE;
+        }
 
-	SDL_Renderer *ren = SDL_CreateRenderer(win, -1,SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
-	if (ren == NULL) {
-		fprintf(stderr, "SDL_CreateRenderer Error: %s\n", SDL_GetError());
-		if (win != NULL) {
-			SDL_DestroyWindow(win);
-		}
-		SDL_Quit();
-		return EXIT_FAILURE;
-	}
+        SDL_Renderer* ren = SDL_CreateRenderer(win, -1,SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
+        if (ren == NULL) {
+                fprintf(stderr, "SDL_CreateRenderer Error: %s\n", SDL_GetError());
+                if (win != NULL) {
+                        SDL_DestroyWindow(win);
+                }
+                SDL_Quit();
+                //return EXIT_FAILURE;
+        }
+        ctx = {win, ren};
+}
 
-        SDL_Rect myRect = {
-                .w = 50,
-                .h = 50,
-                .x = 10,
-                .y = 10,
-        };
+App::~App()
+{
+        //SDL_DestroyRenderer(ren);
+        //SDL_DestroyWindow(win);
+        SDL_Quit();
+}
 
-        uint8_t close = 0;
+void App::start()
+{
+        tick();
+}
+
+void App::stop()
+{
+        close = true;
+}
+        
+void App::tick()
+{
+        setup();
+
         while (!close) {
                 SDL_Event event; 
           
@@ -72,22 +87,18 @@ int main(void)
                 }
 
                 //update
-                myRect.x += 1;
-                myRect.x %= 100;
+                update(FPS);
 
                 // Render
-                SDL_RenderClear(ren);
+                ctx.clear();
 
-                SDL_SetRenderDrawColor(ren, 0, 255, 0, 255); // green
-                SDL_RenderFillRect(ren, &myRect);
-                SDL_SetRenderDrawColor(ren, 0, 0, 0, 255); // black
+                draw(ctx);
 
-                SDL_RenderPresent(ren);
-                SDL_Delay(1000 / 60); // 60 FPS
+                ctx.display();
+                SDL_Delay(FPS); // 60 FPS
         }
 
-	SDL_DestroyRenderer(ren);
-	SDL_DestroyWindow(win);
-	SDL_Quit();
-	return EXIT_SUCCESS;
 }
+
+
+
