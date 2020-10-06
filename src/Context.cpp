@@ -33,7 +33,7 @@ namespace Graphics{
         Context::~Context()
         {
                 if (_renderer) SDL_DestroyRenderer(_renderer);
-                if(_window) SDL_DestroyWindow(_window);
+                if (_window) SDL_DestroyWindow(_window);
         }
 
         void Context::clear()

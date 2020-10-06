@@ -15,13 +15,25 @@ namespace Graphics{
                         SDL_Renderer* _renderer = nullptr;
                         inline void setColour(Colour const& col);
                 public:
-                        Context() = default;
+                        Context() = default; // intialize with nullptr
+
+                        // make sure we can't copy - only one thing can
+                        // own _window and _renderer
                         Context(Context const& other) = delete;
-                        Context(Context&& other);
                         Context& operator=(Context const& other) = delete;
+
+                        // but we can move it, but we need to
+                        // do it manually so we don't accidentally
+                        // destroy things
+                        Context(Context&& other);
                         Context& operator=(Context&& other);
+
+                        // So we can take ownership of resources
+                        // We can't acquire them ourselves because
+                        // We don't have the information to construct them
                         Context(SDL_Window* win, SDL_Renderer* ren);
 
+                        // Cleanup the window and render context
                         ~Context();
 
                         void clear();

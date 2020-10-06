@@ -14,22 +14,22 @@ namespace Graphics{
                                         uint8_t g;
                                         uint8_t r;
                                 };
-                                constexpr __color_data(uint32_t d): raw(d) { }
-                                constexpr __color_data(uint8_t _r, uint8_t _g, uint8_t _b, uint8_t _a):
+                                inline __color_data(uint32_t d): raw(d) { }
+                                inline __color_data(uint8_t _r, uint8_t _g, uint8_t _b, uint8_t _a):
                                         a(_a), b(_b), g(_g), r(_r) { }
                         } _data;
                 public:
-                        constexpr explicit Colour(int c) : _data(static_cast<uint32_t>(c)) { }
+                        inline explicit Colour(int c) : _data(static_cast<uint32_t>(c)) { }
 
-                        constexpr explicit Colour(uint32_t c) : _data(c) { }
+                        inline explicit Colour(uint32_t c) : _data(c) { }
 
-                        constexpr Colour(int r, int g, int b, int a = 255) : _data(r, g, b, a) { }
+                        inline Colour(int r, int g, int b, int a = 255) : _data(r, g, b, a) { }
 
-                        constexpr uint32_t r()    const { return _data.r; }
-                        constexpr uint32_t g()    const { return _data.g; }
-                        constexpr uint32_t b()    const { return _data.b; }
-                        constexpr uint32_t a()    const { return _data.a; }
-                        constexpr uint32_t data() const { return _data.raw; }
+                        inline uint32_t r()    const { return _data.r; }
+                        inline uint32_t g()    const { return _data.g; }
+                        inline uint32_t b()    const { return _data.b; }
+                        inline uint32_t a()    const { return _data.a; }
+                        inline uint32_t data() const { return _data.raw; }
 
                         static const Colour BLACK;
                         static const Colour WHITE;

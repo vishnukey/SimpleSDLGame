@@ -2,12 +2,12 @@
 
 #include <iostream>
 
-Game::Game() : App{"Simple Game", 100, 100, 620, 387} 
+Game::Game()
 { 
 
 }
 
-void Game::setup()
+void Game::setup(Graphics::Context& ctx)
 {
 
 }

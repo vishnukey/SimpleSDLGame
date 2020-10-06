@@ -9,5 +9,4 @@ namespace Graphics{
         const Colour Colour::YELLOW    = {255, 255, 0  };
         const Colour Colour::MAGENTA   = {255, 0  , 255};
         const Colour Colour::CYAN      = {0  , 255, 255};
-
 };
