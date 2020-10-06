@@ -16,7 +16,7 @@ namespace Graphics{
                                 };
                                 constexpr __color_data(uint32_t d): raw(d) { }
                                 constexpr __color_data(uint8_t _r, uint8_t _g, uint8_t _b, uint8_t _a):
-                                        r(_r), g(_g), b(_b), a(_a) { }
+                                        a(_a), b(_b), g(_g), r(_r) { }
                         } _data;
                 public:
                         constexpr explicit Colour(int c) : _data(static_cast<uint32_t>(c)) { }
@@ -31,23 +31,15 @@ namespace Graphics{
                         constexpr uint32_t a()    const { return _data.a; }
                         constexpr uint32_t data() const { return _data.raw; }
 
-                        const static Colour BLACK;
-                        const static Colour WHITE;
-                        const static Colour RED;
-                        const static Colour GREEN;
-                        const static Colour BLUE;
-                        const static Colour YELLOW;
-                        const static Colour MAGENTA;
-                        const static Colour CYAN;
+                        static const Colour BLACK;
+                        static const Colour WHITE;
+                        static const Colour RED;
+                        static const Colour GREEN;
+                        static const Colour BLUE;
+                        static const Colour YELLOW;
+                        static const Colour MAGENTA;
+                        static const Colour CYAN;
         };
 
-        const Colour Colour::BLACK     = {0  , 0  , 0  };
-        const Colour Colour::WHITE     = {255, 255, 255};
-        const Colour Colour::RED       = {255, 0  , 0  };
-        const Colour Colour::GREEN     = {0  , 255, 0  };
-        const Colour Colour::BLUE      = {0  , 0  , 255};
-        const Colour Colour::YELLOW    = {255, 255, 0  };
-        const Colour Colour::MAGENTA   = {255, 0  , 255};
-        const Colour Colour::CYAN      = {0  , 255, 255};
 };
 #endif

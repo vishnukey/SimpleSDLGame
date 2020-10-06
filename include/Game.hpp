@@ -5,7 +5,8 @@
 
 class Game: public App {
         private:
-                SDL_Rect rect;
+                const float y = 10.f, h = 50.f, w = 50.f, speed = 100.f;
+                float x = 50.f;
         protected:
                 void setup()  override;
                 void update(float elapsedTime) override;

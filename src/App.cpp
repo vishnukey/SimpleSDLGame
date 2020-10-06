@@ -1,7 +1,7 @@
 #include <App.hpp>
 
 #include <stdio.h>
-
+#include <iostream>
 App::App(std::string title, int x, int y, int width, int height)
 {
         if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
@@ -50,7 +50,6 @@ void App::tick()
 
         while (!close) {
                 SDL_Event event; 
-          
                 // Events mangement 
                 while (SDL_PollEvent(&event)) { 
                     switch (event.type) { 
@@ -87,7 +86,7 @@ void App::tick()
                 }
 
                 //update
-                update(FPS);
+                update(1.f/60.f);
 
                 // Render
                 ctx.clear();

@@ -8,14 +8,18 @@
 namespace Graphics{
         class Context{
                 public:
-                        constexpr static Colour CLEAR_COLOUR = {0,0,0}; // black
+                        const static Colour CLEAR_COLOUR;
 
                 private:
                         SDL_Window*   _window = nullptr;
                         SDL_Renderer* _renderer = nullptr;
+                        inline void setColour(Colour const& col);
                 public:
                         Context() = default;
-                        Context(Context& other) = delete;
+                        Context(Context const& other) = delete;
+                        Context(Context&& other);
+                        Context& operator=(Context const& other) = delete;
+                        Context& operator=(Context&& other);
                         Context(SDL_Window* win, SDL_Renderer* ren);
 
                         ~Context();
@@ -23,8 +27,8 @@ namespace Graphics{
                         void clear();
                         void display();
 
-                        void rect(int x, int y, int w, int h, Colour col = Colour::MAGENTA);
-                        void line(int x1, int y1, int x2, int y2, Colour col = Colour::MAGENTA); 
+                        void rect(float x, float y, float w, float h, Colour col = Colour::MAGENTA);
+                        void line(float x1, float y1, float x2, float y2, Colour col = Colour::MAGENTA); 
         };
 };
 #endif
