@@ -4,15 +4,12 @@
 
 void Game::setup(Graphics::Context& ctx)
 {
-
+        player = {ctx.width() / 2.f, ctx.height() - 70.f};
 }
 
 bool Game::update(float elapsedTime, Event const& input)
 {
-        static unsigned long long int frameCount = 0;
-
-        frameCount++;
-
+        Player::Dir dir = Player::NONE;
         switch(input.key.table.W){
                 case Event::Key::State::PRESSED:
                         std::cout << "W key pressed" << std::endl;
@@ -24,13 +21,14 @@ bool Game::update(float elapsedTime, Event const& input)
                 default:
                         break;
         }
+        
+        if (input.key.table.A == Event::Key::State::HELD) dir = Player::LEFT;
+        if (input.key.table.D == Event::Key::State::HELD) dir = Player::RIGHT;
+
+        player.update(elapsedTime, dir);
+
         if (x > 100) x = 0;
         x += speed * elapsedTime;
-
-        if (frameCount > 200) {
-                std::cout << "Finsihed!" << std::endl;
-                return false;
-        }
 
         return true;
 }
@@ -38,5 +36,6 @@ bool Game::update(float elapsedTime, Event const& input)
 void Game::draw(Graphics::Context& ctx)
 {
         ctx.rect(x, y, w, h, Graphics::Colour::GREEN);
+        player.draw(ctx);
 }
 

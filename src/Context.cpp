@@ -5,12 +5,13 @@
 namespace Graphics{
         const Colour Context::CLEAR_COLOUR = Colour::BLACK;
 
-        Context::Context(SDL_Window* win, SDL_Renderer* ren) : _window(win), _renderer(ren) 
+        Context::Context(SDL_Window* win, SDL_Renderer* ren, int w, int h) 
+                : _window(win), _renderer(ren), _width(w), _height(h)
         { 
                 
         }
 
-        Context::Context(Context&& other)
+        Context::Context(Context&& other) : _width(other._width), _height(other._height)
         {
                 _window = std::move(other._window);
                 _renderer = std::move(other._renderer);
@@ -23,6 +24,8 @@ namespace Graphics{
         {
                 _window = std::move(other._window);
                 _renderer = std::move(other._renderer);
+                _width = other._width;
+                _height = other._height;
 
                 other._window = nullptr;
                 other._renderer = nullptr;

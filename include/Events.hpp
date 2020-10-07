@@ -2,6 +2,7 @@
 #define EVENTS__HPP__
 
 #include <array>
+#include <cstring>
 
 struct Event{
         struct Key{
@@ -20,5 +21,10 @@ struct Event{
                 Key table;
                 std::array<Key::State, sizeof(Key) * sizeof(Key::State)> data;
         } key;
+
+        Event()
+        {
+                memset(key.data.data(), (int)Key::State::EMPTY, key.data.size());
+        }
 };
 #endif

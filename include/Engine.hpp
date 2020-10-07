@@ -70,7 +70,7 @@ class Engine{
                         while (SDL_PollEvent(&event)) { 
                             switch (event.type) { 
                                     case SDL_QUIT: 
-                                        // handling of close button 
+                                        // handling of close button
                                         close = true; 
                                         break; 
                           
@@ -147,7 +147,7 @@ class Engine{
                         handle_events(); 
                        
                         //update
-                        close = !game.update(elapsedTime, input);
+                        close |= !game.update(elapsedTime, input);
 
                         for (uint8_t i = 0; i < input.key.data.size(); i++)
                                 update_input((Event::Key::State&)(input.key.data[i]), Event::Key::State::EMPTY);
@@ -164,11 +164,13 @@ class Engine{
                 {
                         if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
                                 fprintf(stderr, "SDL_Init Error: %s\n", SDL_GetError());
+                                throw "Failed to init SDL";
                         }
 
                         SDL_Window* win = SDL_CreateWindow(title.c_str(), x, y, width, height, SDL_WINDOW_SHOWN);
                         if (win == NULL) {
                                 fprintf(stderr, "SDL_CreateWindow Error: %s\n", SDL_GetError());
+                                throw "Failed to create Window";
                         }
 
                         SDL_Renderer* ren = SDL_CreateRenderer(win, -1,SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
@@ -178,8 +180,9 @@ class Engine{
                                         SDL_DestroyWindow(win);
                                 }
                                 SDL_Quit();
+                                throw "Failed to create renderer";
                         }
-                        ctx = {win, ren}; // takes ownership
+                        ctx = {win, ren, width, height}; // takes ownership
                 }
 
                 ~Engine()

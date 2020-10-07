@@ -13,7 +13,9 @@ namespace Graphics{
                         SDL_Window*   _window = nullptr;
                         SDL_Renderer* _renderer = nullptr;
                         inline void setColour(Colour const& col);
+                        int _width, _height;
                 public:
+
                         Context() = default; // intialize with nullptr
 
                         // make sure we can't copy - only one thing can
@@ -30,10 +32,13 @@ namespace Graphics{
                         // So we can take ownership of resources
                         // We can't acquire them ourselves because
                         // We don't have the information to construct them
-                        Context(SDL_Window* win, SDL_Renderer* ren);
+                        Context(SDL_Window* win, SDL_Renderer* ren, int w, int h);
 
                         // Cleanup the window and render context
                         ~Context();
+
+                        inline int width(){ return _width; }
+                        inline int height(){ return _height; }
 
                         void clear();
                         void display();
