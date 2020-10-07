@@ -1,9 +1,8 @@
 #ifndef GAME__HPP__
 #define GAME__HPP__
 
-//#include <App.hpp>
-
 #include <Context.hpp>
+#include <Events.hpp>
 
 class Game{
         private:
@@ -11,9 +10,8 @@ class Game{
                 float x = 50.f;
         public:
                 void setup(Graphics::Context& ctx);
-                void update(float elapsedTime);
+                bool update(float elapsedTime, Event const& input);
                 void draw(Graphics::Context& ctx);
-                Game();
 }; 
 
 #endif

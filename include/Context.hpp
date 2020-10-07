@@ -9,7 +9,6 @@ namespace Graphics{
         class Context{
                 public:
                         const static Colour CLEAR_COLOUR;
-
                 private:
                         SDL_Window*   _window = nullptr;
                         SDL_Renderer* _renderer = nullptr;

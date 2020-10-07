@@ -1,6 +1,6 @@
-#include <Context.hpp>
-
 #include <iostream>
+
+#include <Context.hpp>
 
 namespace Graphics{
         const Colour Context::CLEAR_COLOUR = Colour::BLACK;
