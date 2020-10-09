@@ -39,3 +39,8 @@ void Game::draw(Graphics::Context& ctx)
         player.draw(ctx);
 }
 
+void Game::close(Graphics::Context& ctx)
+{
+
+}
+

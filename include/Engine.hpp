@@ -8,7 +8,7 @@
 #include <Context.hpp>
 #include <Events.hpp>
 
-template<typename Game>
+template<Graphics::Runner Game>
 class Engine{
         public:
                 static constexpr float TARGET_FRAME_TIME = 1.f / 60.f;
@@ -197,6 +197,7 @@ class Engine{
                                 tick(TARGET_FRAME_TIME);
                                 SDL_Delay(TARGET_FRAME_TIME * SECONDS_TO_MILLIS); // 60 FPS
                         }
+                        game.close(ctx);
                 }
 
                 void stop()

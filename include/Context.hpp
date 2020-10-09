@@ -1,9 +1,12 @@
 #ifndef CONTEXT__HPP__
 #define CONTEXT__HPP__
 
+#include <concepts>
+
 #include <SDL2/SDL.h>
 
 #include <Colour.hpp>
+#include <Events.hpp>
 
 namespace Graphics{
         class Context{
@@ -46,5 +49,15 @@ namespace Graphics{
                         void rect(float x, float y, float w, float h, Colour col = Colour::MAGENTA);
                         void line(float x1, float y1, float x2, float y2, Colour col = Colour::MAGENTA); 
         };
+
+        template <typename R>
+        concept Runner = requires(R r, Context& c, float e, Event const& i) {
+                requires std::default_initializable<R>;
+                { r.setup(c)     } -> std::same_as<void>;
+                { r.update(e, i) } -> std::same_as<bool>;
+                { r.draw(c)      } -> std::same_as<void>;
+                { r.close(c)     } -> std::same_as<void>;
+        };
 };
+
 #endif

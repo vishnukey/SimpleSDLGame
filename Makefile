@@ -4,7 +4,7 @@ INC=include
 LIB=lib
 NAME=SimpleGame
 
-FLAGS= -g
+FLAGS= -g -std=c++20
 FLAGS+= `sdl2-config --cflags`
 FLAGS+= -I${INC}
 FLAGS+= -Wall -Werror

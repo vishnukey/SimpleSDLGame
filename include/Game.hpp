@@ -38,10 +38,12 @@ class Game{
                 float x = 50.f;
                 Player player{0, 0};
         public:
-                Game() = default;
+                Game()  = default;
+                ~Game() = default;
                 void setup(Graphics::Context& ctx);
                 bool update(float elapsedTime, Event const& input);
                 void draw(Graphics::Context& ctx);
+                void close(Graphics::Context& ctx);
 }; 
 
 #endif
