@@ -31,5 +31,9 @@ The branch `cpp` contains the C++ version of the program,
 though the design paralles the C version and attempts to be
 just as friendly. Both versions are designed so as to have
 the game logic code be removed and another game easily built
-on top instead.
+on top instead. The master branch contains a simple starter
+file to get up and running with SDL and a game loop. Both 
+versions of this project started from that file and much of
+it is still present in the other versions. This branch 
+will maintain this starter file
 
