@@ -14,9 +14,9 @@ class Enemy{
                 Graphics::Colour col;
         public:   
                 Enemy(
-                        float x, float s = 50, 
-                        float w = 30, float h = 45, 
-                        float y = 0, Graphics::Colour c = Graphics::Colour::RED
+                        float x, float s = 10, 
+                        float w = 25, float h = 55, 
+                        float y = -55, Graphics::Colour c = Graphics::Colour::RED
                 ) : _x(x), _y(y), _width(w), _height(h), _speed(s), col(c) 
                 {
 
@@ -44,7 +44,11 @@ class Shot{
         float _x, _y, _speed, _len;
         Graphics::Colour _col;
         public:
-                Shot(float x, float y, float s = 500, float len = 70, Graphics::Colour col = Graphics::Colour::MAGENTA) :
+                Shot(
+                                float x, float y, 
+                                float s = 1000, float len = 100, 
+                                Graphics::Colour col = {0x66, 0x22, 0x66}
+                ):
                         _x(x), _y(y), _speed(s), _len(len), _col(col)
                 {
 
@@ -84,8 +88,8 @@ class Player{
         public:
                 Player(
                                 float x, float y, 
-                                float w = 30, float h = 45, 
-                                float s = 200, Graphics::Colour c = {0x00, 0xff, 0x00}
+                                float w = 20, float h = 50, 
+                                float s = 200, Graphics::Colour c = {0x66, 0x11, 0x11}
                         ) : _x(x), _y(y), _width(w), _height(h), _speed(s), col(c) 
                 {
 
@@ -97,7 +101,7 @@ class Player{
 
                 Shot shoot(){
                         
-                        return {_x + _width / 2, _y - _height/2};
+                        return {_x + _width / 2, _y - _height};
                 }
 
                 void draw(Graphics::Context& ctx)
@@ -108,7 +112,7 @@ class Player{
 
 class Game{
         private:
-                Player player{0, 0};
+                Player player{100, 550};
                 std::vector<Shot> shots;
                 std::vector<Enemy> enemies;
                 float width, height;

@@ -6,9 +6,9 @@ void Game::setup(Graphics::Context& ctx)
 {
         width = ctx.width();
         height = ctx.height();
-        player = {ctx.width() / 2.f, ctx.height() - 70.f};
+        //player = {ctx.width() / 2.f, ctx.height() - 70.f};
 
-        enemies.emplace_back(20);
+        enemies.emplace_back(50);
 }
 
 bool Game::update(float elapsedTime, Event const& input)
