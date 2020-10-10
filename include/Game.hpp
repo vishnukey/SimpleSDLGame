@@ -65,8 +65,13 @@ class Shot{
                 }
 
                 bool collide(Enemy& e)
-                {
-                       return false; 
+                {                        
+                        return (// Check if the shot, s, is colliding with the enemy, e
+                                _x+1 > e.x() && 
+                                _x-1 < e.x() + e.width() &&
+                                _y < e.y() + e.height() && 
+                                _y + _len > e.y()
+                        );
                 }
 };
 
@@ -92,6 +97,7 @@ class Player{
                 }
 
                 Shot shoot(){
+                        
                         return {_x + _width / 2, _y - _height/2};
                 }
 
