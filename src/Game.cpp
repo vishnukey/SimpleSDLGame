@@ -31,24 +31,23 @@ bool Game::update(float elapsedTime, Event const& input)
                 shots.push_back(player.shoot());
         }
 
-        std::cout << "Shot.size() = " << shots.size() << std::endl;
-
         for (auto it = begin(shots); it != end(shots); /* increment in loop */) {
                 auto& s = *it;
                 if(s.update(elapsedTime)){
                         it = shots.erase(it);
                 }else ++it;
         }
-
-        //if (x > 100) x = 0;
-        //x += speed * elapsedTime;
+        
+        for (auto& e : enemies)
+                if(e.update(elapsedTime)) return false; // end the game when an enemy says so
+        
 
         return true;
 }
 
 void Game::draw(Graphics::Context& ctx)
 {
-        //ctx.rect(x, y, w, h, Graphics::Colour::GREEN);
+        for (auto& e : enemies) e.draw(ctx);
         for (auto& s : shots) s.draw(ctx);
         player.draw(ctx);
 }

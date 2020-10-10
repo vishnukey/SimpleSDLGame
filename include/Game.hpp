@@ -7,7 +7,16 @@
 #include <vector>
 
 class Enemy{
+        public:    
+                bool update(float elapsedTime)
+                {
+                        return false;
+                }
 
+                void draw(Graphics::Context& ctx)
+                {
+
+                }
 };
 
 class Shot{
@@ -77,6 +86,7 @@ class Game{
                 //float x = 50.f;
                 Player player{0, 0};
                 std::vector<Shot> shots;
+                std::vector<Enemy> enemies;
         public:
                 Game()  = default;
                 ~Game() = default;
