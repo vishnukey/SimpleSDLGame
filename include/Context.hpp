@@ -53,10 +53,16 @@ namespace Graphics{
         template <typename R>
         concept Runner = requires(R r, Context& c, float e, Event const& i) {
                 requires std::default_initializable<R>;
-                { r.setup(c)     } -> std::same_as<void>;
                 { r.update(e, i) } -> std::same_as<bool>;
                 { r.draw(c)      } -> std::same_as<void>;
-                { r.close(c)     } -> std::same_as<void>;
+        };
+        template <typename S>
+        concept CanSetup = requires(S s, Context& c){
+                { s.setup(c) } -> std::same_as<void>;
+        };
+        template <typename C>
+        concept CanClose = requires(C c, Context& ctx){
+                { c.close(ctx) } -> std::same_as<void>;
         };
 };
 

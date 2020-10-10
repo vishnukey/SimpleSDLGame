@@ -12,9 +12,10 @@ struct Event{
                         RELEASED = 1 << 1, 
                         HELD = 1 << 2, 
                 };
-                State A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,Y,Z,
+                State A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,
                       UP, DOWN, LEFT, RIGHT,
-                      ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, ZERO;
+                      ONE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, ZERO,
+                      SPACE;
         };
 
         union {

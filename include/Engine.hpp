@@ -8,6 +8,17 @@
 #include <Context.hpp>
 #include <Events.hpp>
 
+#define CHECK_KEY_F(source, target, type) \
+        case SDL_SCANCODE_ ## source:{\
+                update_input(input.key.table.target, Event::Key::State::type); \
+                break;}
+#define CHECK_KEY(key, type) CHECK_KEY_F(key, key, type)
+#define PRESS(key) CHECK_KEY(key, PRESSED)
+#define RELEASE(key) CHECK_KEY(key, RELEASED)
+
+#define PRESS_F(sdlkey, eventkey) CHECK_KEY_F(sdlkey, eventkey, PRESSED)
+#define RELEASE_F(sdlkey, eventkey) CHECK_KEY_F(sdlkey, eventkey, RELEASED)
+
 template<Graphics::Runner Game>
 class Engine{
         public:
@@ -77,60 +88,98 @@ class Engine{
                                     case SDL_KEYDOWN: 
                                         // keyboard API for key pressed 
                                         switch (event.key.keysym.scancode) { 
-                                                case SDL_SCANCODE_W:
-                                                        update_input(input.key.table.W, Event::Key::State::PRESSED);
-                                                        break;
-                                                case SDL_SCANCODE_UP: 
-                                                        update_input(input.key.table.UP, Event::Key::State::PRESSED);
-                                                        break; 
-                                                case SDL_SCANCODE_A:
-                                                        update_input(input.key.table.A, Event::Key::State::PRESSED);
-                                                        break;
-                                                case SDL_SCANCODE_LEFT: 
-                                                        update_input(input.key.table.LEFT, Event::Key::State::PRESSED);
-                                                        break; 
-                                                case SDL_SCANCODE_S: 
-                                                        update_input(input.key.table.S, Event::Key::State::PRESSED);
-                                                        break;
-                                                case SDL_SCANCODE_DOWN: 
-                                                        update_input(input.key.table.DOWN, Event::Key::State::PRESSED);
-                                                        break; 
-                                                case SDL_SCANCODE_D: 
-                                                        update_input(input.key.table.D, Event::Key::State::PRESSED);
-                                                        break;
-                                                case SDL_SCANCODE_RIGHT: 
-                                                        update_input(input.key.table.RIGHT, Event::Key::State::PRESSED);
-                                                        break;
+                                                PRESS(A);
+                                                PRESS(B);
+                                                PRESS(C);
+                                                PRESS(D);
+                                                PRESS(E);
+                                                PRESS(F);
+                                                PRESS(G);
+                                                PRESS(H);
+                                                PRESS(I);
+                                                PRESS(J);
+                                                PRESS(K);
+                                                PRESS(L);
+                                                PRESS(M);
+                                                PRESS(N);
+                                                PRESS(O);
+                                                PRESS(P);
+                                                PRESS(Q);
+                                                PRESS(T);
+                                                PRESS(S);
+                                                PRESS(R);
+                                                PRESS(U);
+                                                PRESS(V);
+                                                PRESS(W);
+                                                PRESS(X);
+                                                PRESS(Y);
+                                                PRESS(Z);
+
+                                                PRESS(UP);
+                                                PRESS(DOWN);
+                                                PRESS(LEFT);
+                                                PRESS(RIGHT);
+                                                PRESS(SPACE);
+
+                                                PRESS_F(0, ZERO);
+                                                PRESS_F(1, ONE);
+                                                PRESS_F(2, TWO);
+                                                PRESS_F(3, THREE);
+                                                PRESS_F(4, FOUR);
+                                                PRESS_F(5, FIVE);
+                                                PRESS_F(6, SIX);
+                                                PRESS_F(7, SEVEN);
+                                                PRESS_F(8, EIGHT);
+                                                PRESS_F(9, NINE);
                                                 default:
                                                         break;
                                         }
                                         break;
-                                case SDL_KEYUP:
+                                    case SDL_KEYUP:
                                         switch (event.key.keysym.scancode) { 
-                                                case SDL_SCANCODE_W:
-                                                        update_input(input.key.table.W, Event::Key::State::RELEASED);
-                                                        break;
-                                                case SDL_SCANCODE_UP: 
-                                                        update_input(input.key.table.UP, Event::Key::State::RELEASED);
-                                                        break; 
-                                                case SDL_SCANCODE_A:
-                                                        update_input(input.key.table.A, Event::Key::State::RELEASED);
-                                                        break;
-                                                case SDL_SCANCODE_LEFT: 
-                                                        update_input(input.key.table.LEFT, Event::Key::State::RELEASED);
-                                                        break; 
-                                                case SDL_SCANCODE_S: 
-                                                        update_input(input.key.table.S, Event::Key::State::RELEASED);
-                                                        break;
-                                                case SDL_SCANCODE_DOWN: 
-                                                        update_input(input.key.table.DOWN, Event::Key::State::RELEASED);
-                                                        break; 
-                                                case SDL_SCANCODE_D: 
-                                                        update_input(input.key.table.D, Event::Key::State::RELEASED);
-                                                        break;
-                                                case SDL_SCANCODE_RIGHT: 
-                                                        update_input(input.key.table.RIGHT, Event::Key::State::RELEASED);
-                                                        break;
+                                                RELEASE(A);
+                                                RELEASE(B);
+                                                RELEASE(C);
+                                                RELEASE(D);
+                                                RELEASE(E);
+                                                RELEASE(F);
+                                                RELEASE(G);
+                                                RELEASE(H);
+                                                RELEASE(I);
+                                                RELEASE(J);
+                                                RELEASE(K);
+                                                RELEASE(L);
+                                                RELEASE(M);
+                                                RELEASE(N);
+                                                RELEASE(O);
+                                                RELEASE(P);
+                                                RELEASE(Q);
+                                                RELEASE(R);
+                                                RELEASE(S);
+                                                RELEASE(T);
+                                                RELEASE(U);
+                                                RELEASE(V);
+                                                RELEASE(W);
+                                                RELEASE(X);
+                                                RELEASE(Y);
+                                                RELEASE(Z);
+
+                                                RELEASE(UP);
+                                                RELEASE(DOWN);
+                                                RELEASE(LEFT);
+                                                RELEASE(RIGHT);
+                                                RELEASE(SPACE);
+
+                                                RELEASE_F(0, ZERO);
+                                                RELEASE_F(1, ONE);
+                                                RELEASE_F(2, TWO);
+                                                RELEASE_F(3, THREE);
+                                                RELEASE_F(4, FOUR);
+                                                RELEASE_F(5, FIVE);
+                                                RELEASE_F(6, SIX);
+                                                RELEASE_F(7, SEVEN);
+                                                RELEASE_F(8, EIGHT);
+                                                RELEASE_F(9, NINE);
                                                 default:
                                                         break;
                                         }
@@ -159,6 +208,16 @@ class Engine{
 
                         ctx.display();
                 }
+
+                template <typename>
+                inline void doSetup(){ }
+                template <Graphics::CanSetup>
+                inline void doSetup(){ game.setup(ctx); }
+
+                template <typename>
+                inline void doClose(){ }
+                template <Graphics::CanClose>
+                inline void doClose(){ game.close(ctx); }
         public:
                 Engine(std::string title, int x, int y, int width, int height)
                 {
@@ -190,14 +249,17 @@ class Engine{
                         SDL_Quit();
                 }
 
+
+
+
                 void start()
                 {
-                        game.setup(ctx);
+                        doSetup<Game>();
                         while(!close){
                                 tick(TARGET_FRAME_TIME);
                                 SDL_Delay(TARGET_FRAME_TIME * SECONDS_TO_MILLIS); // 60 FPS
                         }
-                        game.close(ctx);
+                        doClose<Game>();
                 }
 
                 void stop()

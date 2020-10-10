@@ -9,7 +9,7 @@ void Game::setup(Graphics::Context& ctx)
 
 bool Game::update(float elapsedTime, Event const& input)
 {
-        Player::Dir dir = Player::NONE;
+        //Player::Dir dir = Player::NONE;
         switch(input.key.table.W){
                 case Event::Key::State::PRESSED:
                         std::cout << "W key pressed" << std::endl;
@@ -21,26 +21,36 @@ bool Game::update(float elapsedTime, Event const& input)
                 default:
                         break;
         }
-        
-        if (input.key.table.A == Event::Key::State::HELD) dir = Player::LEFT;
-        if (input.key.table.D == Event::Key::State::HELD) dir = Player::RIGHT;
+       
+        float dx = 0;
+        if (input.key.table.A == Event::Key::State::HELD) dx = -elapsedTime;
+        if (input.key.table.D == Event::Key::State::HELD) dx = elapsedTime;
 
-        player.update(elapsedTime, dir);
+        player.move(dx);
+        if (input.key.table.SPACE == Event::Key::State::PRESSED){
+                shots.push_back(player.shoot());
+        }
 
-        if (x > 100) x = 0;
-        x += speed * elapsedTime;
+        std::cout << "Shot.size() = " << shots.size() << std::endl;
+
+        for (auto it = begin(shots); it != end(shots); /* increment in loop */) {
+                auto& s = *it;
+                if(s.update(elapsedTime)){
+                        it = shots.erase(it);
+                }else ++it;
+        }
+
+        //if (x > 100) x = 0;
+        //x += speed * elapsedTime;
 
         return true;
 }
 
 void Game::draw(Graphics::Context& ctx)
 {
-        ctx.rect(x, y, w, h, Graphics::Colour::GREEN);
+        //ctx.rect(x, y, w, h, Graphics::Colour::GREEN);
+        for (auto& s : shots) s.draw(ctx);
         player.draw(ctx);
 }
 
-void Game::close(Graphics::Context& ctx)
-{
-
-}
 
