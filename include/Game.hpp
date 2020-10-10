@@ -7,16 +7,37 @@
 #include <vector>
 
 class Enemy{
-        public:    
-                bool update(float elapsedTime)
+        private:
+                float _x, _y;
+                float _width, _height;
+                float _speed;
+                Graphics::Colour col;
+        public:   
+                Enemy(
+                        float x, float s = 50, 
+                        float w = 30, float h = 45, 
+                        float y = 0, Graphics::Colour c = Graphics::Colour::RED
+                ) : _x(x), _y(y), _width(w), _height(h), _speed(s), col(c) 
                 {
-                        return false;
+
+                }
+
+                bool update(float elapsedTime, float bottom)
+                {
+                        _y += _speed * elapsedTime;
+                        if (_y > bottom) return true;
+                        else return false;
                 }
 
                 void draw(Graphics::Context& ctx)
                 {
-
+                        ctx.rect(_x, _y, _width, _height, col);
                 }
+
+                float x() const { return _x; }
+                float y() const { return _y; }
+                float width() const { return _width; }
+                float height() const { return _height; }
 };
 
 class Shot{
@@ -87,6 +108,7 @@ class Game{
                 Player player{0, 0};
                 std::vector<Shot> shots;
                 std::vector<Enemy> enemies;
+                float width, height;
         public:
                 Game()  = default;
                 ~Game() = default;

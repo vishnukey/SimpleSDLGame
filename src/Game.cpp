@@ -4,7 +4,11 @@
 
 void Game::setup(Graphics::Context& ctx)
 {
+        width = ctx.width();
+        height = ctx.height();
         player = {ctx.width() / 2.f, ctx.height() - 70.f};
+
+        enemies.emplace_back(20);
 }
 
 bool Game::update(float elapsedTime, Event const& input)
@@ -39,7 +43,25 @@ bool Game::update(float elapsedTime, Event const& input)
         }
         
         for (auto& e : enemies)
-                if(e.update(elapsedTime)) return false; // end the game when an enemy says so
+                if(e.update(elapsedTime, height)) return false; // end the game when an enemy says so
+
+
+        // collision detection
+        for (auto it = begin(enemies); it != end(enemies); /* increment in loop */){
+                auto& e = *it;
+                bool hit = false;
+                for (auto jt = begin(shots); jt != end(shots); /* increment in loop */){
+                        auto& s = *jt;
+                        if (s.collide(e)){ // on collision, destroy both enemy and shot
+                                jt = shots.erase(jt);
+                                it = enemies.erase(it);
+                                hit = true;
+                        }else
+                                ++jt;
+                }
+                if (hit) hit = false;
+                else ++it;
+        }
         
 
         return true;
