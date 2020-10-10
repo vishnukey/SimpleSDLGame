@@ -66,7 +66,7 @@ class Shot{
 
                 bool collide(Enemy& e)
                 {                        
-                        return (// Check if the shot, s, is colliding with the enemy, e
+                        return (// Check if this shot is colliding with the enemy, e
                                 _x+1 > e.x() && 
                                 _x-1 < e.x() + e.width() &&
                                 _y < e.y() + e.height() && 
@@ -82,7 +82,6 @@ class Player{
                 float _speed;
                 Graphics::Colour col;
         public:
-                //enum Dir{ LEFT = -1, NONE = 0, RIGHT = 1 };
                 Player(
                                 float x, float y, 
                                 float w = 30, float h = 45, 
@@ -109,8 +108,6 @@ class Player{
 
 class Game{
         private:
-                //const float y = 10.f, h = 50.f, w = 50.f, speed = 100.f;
-                //float x = 50.f;
                 Player player{0, 0};
                 std::vector<Shot> shots;
                 std::vector<Enemy> enemies;
