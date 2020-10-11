@@ -10,7 +10,7 @@
 
 #define CHECK_KEY_F(source, target, type) \
         case SDL_SCANCODE_ ## source:{\
-                update_input(input.key.table.target, Event::Key::State::type); \
+                update_input(input.keys.target, Event::Key::State::type); \
                 break;}
 #define CHECK_KEY(key, type) CHECK_KEY_F(key, key, type)
 #define PRESS(key) CHECK_KEY(key, PRESSED)
@@ -198,8 +198,8 @@ class Engine{
                         //update
                         close |= !game.update(elapsedTime, input);
 
-                        for (uint8_t i = 0; i < input.key.data.size(); i++)
-                                update_input((Event::Key::State&)(input.key.data[i]), Event::Key::State::EMPTY);
+                        for (uint8_t i = 0; i < sizeof(Event::Key); i++)
+                                update_input(reinterpret_cast<Event::Key::State*>(&input.keys)[i], Event::Key::State::EMPTY);
 
                         // Render
                         ctx.clear();

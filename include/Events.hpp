@@ -18,14 +18,15 @@ struct Event{
                       SPACE;
         };
 
-        union {
-                Key table;
-                std::array<Key::State, sizeof(Key) * sizeof(Key::State)> data;
-        } key;
+        Key keys;
+        //union {
+                //Key table;
+                //std::array<Key::State, sizeof(Key) * sizeof(Key::State)> data;
+        //} key;
 
         Event()
         {
-                memset(key.data.data(), (int)Key::State::EMPTY, key.data.size());
+                memset(reinterpret_cast<uint8_t*>(&keys), (int)Key::State::EMPTY, sizeof(Key) - 1);
         }
 };
 #endif
