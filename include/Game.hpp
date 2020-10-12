@@ -5,6 +5,7 @@
 #include <Events.hpp>
 
 #include <vector>
+#include <iostream>
 
 class Enemy{
         private:
@@ -47,7 +48,8 @@ class Shot{
                 Shot(
                                 float x, float y, 
                                 float s = 1000, float len = 100, 
-                                Graphics::Colour col = {0x66, 0x22, 0x66}
+                                //Graphics::Colour col = {0x66, 0x22, 0x66}
+                                Graphics::Colour col = {0x662266}
                 ):
                         _x(x), _y(y), _speed(s), _len(len), _col(col)
                 {

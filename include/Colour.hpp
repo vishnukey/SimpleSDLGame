@@ -6,34 +6,19 @@
 namespace Graphics{
         struct Colour{
                 private:
-                        /*union __color_data{
-                                uint32_t raw;
-                                struct {
-                                        uint8_t a;
-                                        uint8_t b;
-                                        uint8_t g;
-                                        uint8_t r;
-                                };
-                                inline __color_data(uint32_t d): raw(d) { }
-                                inline __color_data(uint8_t _r, uint8_t _g, uint8_t _b, uint8_t _a):
-                                        a(_a), b(_b), g(_g), r(_r) { }
-                        } _data;*/
                         uint8_t _a;
                         uint8_t _b;
                         uint8_t _g;
                         uint8_t _r;
                 public:
-                        //inline explicit Colour(int c) : _data() { }
-
-                        //inline explicit Colour(uint32_t c) : _data(c) { }
-
                         inline Colour(int r, int g, int b, int a = 255) : _a(a), _b(b), _g(g), _r(r) {}//_data(r, g, b, a) { }
+                        inline Colour(int col) : _a((col >> 24) & 0xFF), _b((col >> 16) & 0xff), _g((col >> 8) & 0xFF), _r(col & 0xFF) { }
+                        inline Colour(uint32_t col) : Colour(static_cast<int>(col)) { }
 
-                        inline uint32_t r()    const { return _r; }
-                        inline uint32_t g()    const { return _g; }
-                        inline uint32_t b()    const { return _b; }
-                        inline uint32_t a()    const { return _a; }
-                        //inline uint32_t data() const { return _raw; }
+                        inline uint32_t r() const { return _r; }
+                        inline uint32_t g() const { return _g; }
+                        inline uint32_t b() const { return _b; }
+                        inline uint32_t a() const { return _a; }
 
                         static const Colour BLACK;
                         static const Colour WHITE;
